@@ -1,0 +1,54 @@
+<section style="margin-top: 5%;">
+  <h1 style="text-align: center;">Income Tracker</h1><br>
+<table id="table" class="display mb-5" style="" >
+        <thead>
+            <tr><th>#</th>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Options</th>
+            </tr>
+        </thead>    
+        <tbody>
+            {{#each income as |inc|}}
+            <tr>
+                <td>{{#add @index 1 }}{{/add}}</td>
+                <td>{{#each inc}}{{title}}{{/each}}</td>
+                <td>{{#each inc}}
+                    {{#eq type "income"}}
+                        
+                    <p class="text-success mt-2">{{amount}}</p>
+                    {{else}}
+                       
+                    <p class="text-danger mt-2">{{amount}}</p>
+                    {{/eq}}
+                    {{/each}}</td>
+                <td>{{#each inc}}{{incdate}}{{/each}}</td>
+               
+                <td>
+                    <a href="/edit/{{#each inc}}{{_id}}{{/each}}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                    </a>&emsp;
+                    <a href="/delete/{{#each inc}}{{_id}}{{/each}}"
+                    onClick="return confirm('Deleting {{#each inc}}{{title}}{{/each}} Are you sure? ')"
+                    >
+                            <i class="fa-solid fa-trash"></i>
+                            
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+       
+    </table>
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable(
+            
+        );
+        
+    });
+</script>

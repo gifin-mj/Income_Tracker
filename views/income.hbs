@@ -1,0 +1,68 @@
+<section style="margin-top: 10%;">
+    <div class="container mt-4 mb-3">
+
+        {{#if income}}
+        <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-4">Edit Data</p>
+        <form action="/update/{{#each income}}{{_id}}{{/each}}" method="post">
+        {{else}}
+        <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-4">Add Data</p>
+        <form action="/add" method="post">
+        {{/if}}
+            <div class="form-group">
+                
+                <input type="text" required class="form-control mt-3" value="{{#each income}}{{title}}{{/each}}"  name="title" placeholder="Enter title for income or expense" />
+             </div>
+             <div class="form-group">
+
+                <input type="number" required class="form-control mt-3" value="{{#each income}}{{amount}}{{/each}}" name="amount" placeholder="Enter amount" />
+             </div>
+              <div class="form-group">
+              <input required type="text" hidden name="userid" 
+              value=
+                    {{#if user.id}}
+                        {{user.id}}
+                    {{else}}
+                        {{user._id}}
+                    {{/if}}
+
+                    />
+                    </div>
+        <div class="form-group mt-3">
+             <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="income"
+                {{#each income}}
+                {{#eq type "income"}} checked {{/eq}}
+                {{/each}}  >
+                 <label class="form-check-label" for="inlineRadio1">Income</label>
+            </div>&emsp;
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="expense" 
+                {{#each income}}
+                {{#eq type "expense"}} checked {{/eq}}
+                {{/each}}  >
+                <label class="form-check-label" for="inlineRadio2">Expense</label>
+            </div>
+        </div>
+              <div class="form-group">
+
+                <input type="date" required class="form-control mt-3" value="{{#each income}}{{incdate}}{{/each}}" name="incdate"  />
+             </div>
+
+             <div class="row">
+                {{#if income}}
+                <input type="submit" class="btn btn-secondary btn-lg btn-block mt-3 ml-auto"   value="Update Data" />
+                {{else}}
+                <input type="submit" class="btn btn-secondary btn-lg btn-block mt-3 ml-auto"   value="Add Data" />
+                {{/if}}
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<script>
+    function imageView(event){
+
+        document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>
